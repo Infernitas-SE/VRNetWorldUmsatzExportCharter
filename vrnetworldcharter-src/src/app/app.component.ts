@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { CSVParser } from './CSV'
+import { CSVParser, SplitArray } from './CSV'
 
 @Component({
   selector: 'app-root',
@@ -60,6 +60,8 @@ export class AppComponent {
       _.csvHandler.Parse()
       _.csvHandler.CutHeader()
       _.csvHandler.Dump()
+      var result = SplitArray(_.csvHandler.GetData(), 50)
+      console.log(result)
     }
     fileReader.readAsText(this.csvFile)
   }

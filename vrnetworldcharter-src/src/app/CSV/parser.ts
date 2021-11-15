@@ -29,4 +29,8 @@ export class CSVParser {
   public CutHeader() {
     this.data.splice(0, 1)
   }
+
+  public GetData() {
+    return this.data
+  }
 }

@@ -23,31 +23,25 @@ export type SortByOptions =
   | 'Waehrung'
   | 'Ursprung'
 
-export type ArrayRange = `${number}-${number}`;
+export type ArrayRange = `${number}-${number}`
 
 export class SplittedCSVIndexedArray {
-  public range?: ArrayRange;
-  public data?: CSVIndexedRow[];
-  
-  public constructor(
-    range?: ArrayRange,
-    data?: CSVIndexedRow[]
-  ) {
-    this.range = range;
-    this.data = data;
+  public range?: ArrayRange
+  public data?: CSVIndexedRow[]
+
+  public constructor(range?: ArrayRange, data?: CSVIndexedRow[]) {
+    this.range = range
+    this.data = data
   }
 }
 
 export class CSVIndexedRow {
-  public index?: number;
-  public data?: CSVRow;
+  public index?: number
+  public data?: CSVRow
 
-  public constructor(
-    index?: number,
-    data?: CSVRow
-  ) {
-    this.index = index;
-    this.data = data;
+  public constructor(index?: number, data?: CSVRow) {
+    this.index = index
+    this.data = data
   }
 }
 
@@ -61,4 +55,3 @@ export class CSVIndexedRow {
   data: CSVFileRow
 }
  */
-
