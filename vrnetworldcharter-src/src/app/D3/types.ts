@@ -10,3 +10,8 @@ export interface D3Config {
     height: number;
     htmlSelector: string;
 }
+
+export interface D3PieConfig extends D3Config
+{
+    radius: number;
+}
