@@ -7,14 +7,15 @@ import { AppComponent } from './app.component'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { environment } from '../environments/environment'
 import { D3BarComponent, D3PieComponent } from './D3'
-import { FileUploadComponent } from './components/file-upload/file-upload.component'
+import { UebersichtComponent } from './components/uebersicht/uebersicht.component'
+import { AgGridModule } from 'ag-grid-angular'
 
 @NgModule({
   declarations: [
     AppComponent,
     D3BarComponent,
     D3PieComponent,
-    FileUploadComponent,
+    UebersichtComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +27,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
       registrationStrategy: 'registerWhenStable:30000',
     }),
     ReactiveFormsModule,
+    AgGridModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -42,15 +42,21 @@ export class AppComponent {
   }*/
 
   csvFile: any
+  csvPaketGroeße: number = 0
   csvHandler: CSVParser
   public auswertungAktiv: boolean = false
 
   public uploadForm = new FormGroup({
     file: new FormControl(),
+    paketGroeße: new FormControl()
   })
 
   public handleFile(event) {
     this.csvFile = event.target.files.item(0)
+  }
+
+  public handleInput(event) {
+    this.csvPaketGroeße = parseInt(event.target.value)
   }
 
   public uploadFile() {
@@ -61,7 +67,7 @@ export class AppComponent {
       _.csvHandler.Parse()
       _.csvHandler.CutHeader()
       _.csvHandler.Dump()
-      var result = SplitArray(_.csvHandler.GetData(), 50)
+      var result = SplitArray(_.csvHandler.GetData(), _.csvPaketGroeße)
       _.auswertungAktiv = true
       console.log(result)
     }

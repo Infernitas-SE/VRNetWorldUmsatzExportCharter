@@ -7,12 +7,18 @@
     <div class="w-full grid grid-cols-1">
         <h1 class="text-5xl">VR NetWorld UmsatzExport Charter</h1>
     </div>
-    <div class="w-full grid grid-cols-2" *ngIf="this.auswertungAktiv">
-        <div>
-            <h3 class="text-center text-2xl">Charts</h3>
+    <div class="w-full grid grid-rows-2" *ngIf="this.auswertungAktiv">
+        <div class="grid grid-cols-2">
+            <span>Bitte anzahl der Datensätz auswählen: </span>
         </div>
-        <div>
-            <h3 class="text-center text-2xl">Übersicht</h3>
+        <div class="grid grid-cols-2">
+            <div>
+                <h3 class="text-center text-2xl">Charts</h3>
+            </div>
+            <div>
+                <h3 class="text-center text-2xl">Übersicht</h3>
+                <app-uebersicht></app-uebersicht>
+            </div>
         </div>
     </div>
     <div class="w-full grid grid-cols-2 h-10">
@@ -26,6 +32,7 @@
                         <input type="file" id="file" (change)="this.handleFile($event)">
                     </div>
                     <div>
+                        <input class="bg-white-500 hover:bg-white-700 text-black font-bold mr-2 py-2 px-4 rounded" (change)="this.handleInput($event)" id="paketGroeße" type="text" placeholder="Paketgröße">
                         <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Einlesen">
                     </div>
                 </div>

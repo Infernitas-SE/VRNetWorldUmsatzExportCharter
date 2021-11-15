@@ -1,6 +1,9 @@
 import { CSVIndexedRow, SplittedCSVIndexedArray } from '.'
 
-export function SplitArray(base: CSVIndexedRow[], range: number): any {
+export function SplitArray(
+  base: CSVIndexedRow[],
+  range: number
+): SplittedCSVIndexedArray[] {
   var left = base.length % range // Anteil der Übrig bleibt
   var hLength = base.length - left // range passt hier ohne Rest hinein
   var parts = hLength / range // Soviele Teile müssen später entstehen
@@ -37,3 +40,7 @@ export function SplitArray(base: CSVIndexedRow[], range: number): any {
 
   return out
 }
+
+export function TransformForAgGrid(
+  base: CSVIndexedRow[] | SplittedCSVIndexedArray[]
+) {}
