@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-import CSVParser from './CSV/parser';
+import { Component } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
+import { Title } from '@angular/platform-browser'
+import { CSVParser } from './CSV'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public titleSvc: Title)
-  {
+  constructor(public titleSvc: Title) {
     this.titleSvc.setTitle('VR-NetWorld Charter')
-    this.csvHandler = new CSVParser();
+    this.csvHandler = new CSVParser()
   }
   /*
   public barConfig: d3f.D3Config = {
@@ -42,26 +41,26 @@ export class AppComponent {
     radius: Math.min(650, 300) / 2 - 50
   }*/
 
-  csvFile: any;
-  csvHandler: CSVParser;
+  csvFile: any
+  csvHandler: CSVParser
 
   public uploadForm = new FormGroup({
-    file: new FormControl()
-  });
+    file: new FormControl(),
+  })
 
   public handleFile(event) {
-    this.csvFile = event.target.files.item(0);
+    this.csvFile = event.target.files.item(0)
   }
 
   public uploadFile() {
-    let fileReader = new FileReader();
-    const _ = this;
-    fileReader.onload = function(e){
-      _.csvHandler.Load(fileReader.result);
-      _.csvHandler.Parse();
-      _.csvHandler.CutHeader();
-      _.csvHandler.Dump();
+    let fileReader = new FileReader()
+    const _ = this
+    fileReader.onload = function (e) {
+      _.csvHandler.Load(fileReader.result)
+      _.csvHandler.Parse()
+      _.csvHandler.CutHeader()
+      _.csvHandler.Dump()
     }
-    fileReader.readAsText(this.csvFile);
+    fileReader.readAsText(this.csvFile)
   }
 }

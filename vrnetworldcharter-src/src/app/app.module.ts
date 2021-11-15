@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { ReactiveFormsModule } from '@angular/forms'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-import { D3BarComponent, D3PieComponent } from './D3';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { ServiceWorkerModule } from '@angular/service-worker'
+import { environment } from '../environments/environment'
+import { D3BarComponent, D3PieComponent } from './D3'
+import { FileUploadComponent } from './components/file-upload/file-upload.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     D3BarComponent,
     D3PieComponent,
-    FileUploadComponent
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,11 +23,11 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
