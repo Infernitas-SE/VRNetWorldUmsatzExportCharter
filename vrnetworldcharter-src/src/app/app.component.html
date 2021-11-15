@@ -3,14 +3,30 @@
 <d3-pie [cfg]="this.pieConfig"></d3-pie>
 <d3-scatter></d3-scatter>
 -->
-<div class="bg-blue-100 fixed w-full h-full text-center gap-4 p-8 grid grid-rows-1 font-mono">
+<div class="bg-blue-100 fixed w-full h-full text-center gap-4 p-8 grid font-mono">
     <div class="w-full">
         <h1 class="text-5xl">VR NetWorld UmsatzExport Charter</h1>
     </div>
-    <div class="w-full">
-        <form>
-            <span class="text-2xl underline">Export hochladen</span><br>
-            <input type="file" id="file" (change)="this.handleFile($event)">
-        </form>
+    <div class="w-full grid grid-cols-2 h-10">
+        <div>
+            <form [formGroup]="this.uploadForm" (ngSubmit)="this.uploadFile()">
+                <div class="grid grid-rows-3 grid-cols-1 gap-1">
+                    <div>
+                        <span class="text-2xl underline">Export hochladen</span><br>
+                    </div>
+                    <div>
+                        <input type="file" id="file" (change)="this.handleFile($event)">
+                    </div>
+                    <div>
+                        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Einlesen">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <p>VR-NetWorld UmsatzExport Charter</p>
+            <p>MIT Lizenz | 2021 (&copy;) Oliver Karger // Infernitas-SE</p>
+            <p><i>Client-only</i></p>
+        </div>
     </div>
 </div>

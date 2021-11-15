@@ -1,8 +1,9 @@
-import { CSVFileTypeRow } from "./types";
+import { CSVIndexedRow } from ".";
+import { CSVFileRow } from "./types";
 
-export function MapStringToCSV(row: string): CSVFileTypeRow {
-    var rd = row.split(',');
-    var data: CSVFileTypeRow = {
+export function MapStringToCSV(row: string, sep: string = ';'): CSVFileRow {
+    var rd = row.split(sep);
+    var data: CSVFileRow = {
         Datum: rd[0],
         Valuta: rd[1],
         Empfaenger_Name: rd[2],
@@ -15,4 +16,13 @@ export function MapStringToCSV(row: string): CSVFileTypeRow {
         Ursprung: rd[9]
     };
     return data;
+}
+
+export function AddToCSVRow(base: CSVIndexedRow[], row: CSVFileRow): CSVIndexedRow[] {
+    var length = base.length;
+    base.push({
+        index: length++,
+        data: row
+    });
+    return base;
 }

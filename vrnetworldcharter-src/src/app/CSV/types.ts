@@ -1,4 +1,4 @@
-export interface CSVFileTypeRow {
+export interface CSVFileRow {
     Datum: string;
     Valuta: string;
     Empfaenger_Name: string;
@@ -9,4 +9,9 @@ export interface CSVFileTypeRow {
     Betrag: string;
     Waehrung: string;
     Ursprung: string;
+}
+
+export interface CSVIndexedRow { 
+    index: number;
+    data: CSVFileRow 
 }

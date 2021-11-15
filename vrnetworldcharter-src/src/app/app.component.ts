@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import * as d3f from './D3';
+import CSVParser from './CSV/parser';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,10 @@ import * as d3f from './D3';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
   constructor(public titleSvc: Title)
   {
     this.titleSvc.setTitle('VR-NetWorld Charter')
+    this.csvHandler = new CSVParser();
   }
   /*
   public barConfig: d3f.D3Config = {
@@ -41,7 +42,26 @@ export class AppComponent {
     radius: Math.min(650, 300) / 2 - 50
   }*/
 
+  csvFile: any;
+  csvHandler: CSVParser;
+
+  public uploadForm = new FormGroup({
+    file: new FormControl()
+  });
+
   public handleFile(event) {
-    var file = event.target.files.item(0);
+    this.csvFile = event.target.files.item(0);
+  }
+
+  public uploadFile() {
+    let fileReader = new FileReader();
+    const _ = this;
+    fileReader.onload = function(e){
+      _.csvHandler.Load(fileReader.result);
+      _.csvHandler.Parse();
+      _.csvHandler.CutHeader();
+      _.csvHandler.Dump();
+    }
+    fileReader.readAsText(this.csvFile);
   }
 }
