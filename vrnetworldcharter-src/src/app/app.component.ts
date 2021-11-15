@@ -43,6 +43,7 @@ export class AppComponent {
 
   csvFile: any
   csvHandler: CSVParser
+  public auswertungAktiv: boolean = false
 
   public uploadForm = new FormGroup({
     file: new FormControl(),
@@ -61,6 +62,7 @@ export class AppComponent {
       _.csvHandler.CutHeader()
       _.csvHandler.Dump()
       var result = SplitArray(_.csvHandler.GetData(), 50)
+      _.auswertungAktiv = true
       console.log(result)
     }
     fileReader.readAsText(this.csvFile)
