@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as d3 from 'd3';
+import { D3Config, D3Data } from '..';
 
 @Component({
   selector: 'd3-bar',
@@ -7,37 +8,28 @@ import * as d3 from 'd3';
   styleUrls: ['./d3-bar.component.scss']
 })
 export class D3BarComponent implements OnInit {
-  private data = [
-    { "Framework": "Vue", "Stars": "166443", "Released": "2014" },
-    { "Framework": "React", "Stars": "150793", "Released": "2013" },
-    { "Framework": "Angular", "Stars": "62342", "Released": "2016" },
-    { "Framework": "Backbone", "Stars": "27647", "Released": "2010" },
-    { "Framework": "Ember", "Stars": "21471", "Released": "2011" },
-  ];
   private svg!: any;
-  private margin = 50;
-  private width = 750 - (this.margin * 2);
-  private height = 400 - (this.margin * 2);
+  @Input() cfg!: D3Config;
 
   private createSvg(): void {
     this.svg = d3.select("figure#bar")
       .append("svg")
-      .attr("width", this.width + (this.margin * 2))
-      .attr("height", this.height + (this.margin * 2))
+      .attr("width", this.cfg.width + (this.cfg.margin * 2))
+      .attr("height", this.cfg.height + (this.cfg.margin * 2))
       .append("g")
-      .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+      .attr("transform", "translate(" + this.cfg.margin + "," + this.cfg.margin + ")");
   }
 
-  private drawBars(data: any[]): void {
+  private drawBars(data: D3Data[]): void {
     // Create the X-axis band scale
     const x = d3.scaleBand()
-      .range([0, this.width])
-      .domain(data.map(d => d.Framework))
+      .range([0, this.cfg.width])
+      .domain(data.map(d => d.name))
       .padding(0.2);
 
     // Draw the X-axis on the DOM
     this.svg.append("g")
-      .attr("transform", "translate(0," + this.height + ")")
+      .attr("transform", "translate(0," + this.cfg.height + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
       .attr("transform", "translate(-10,0)rotate(-45)")
@@ -45,8 +37,8 @@ export class D3BarComponent implements OnInit {
 
     // Create the Y-axis band scale
     const y = d3.scaleLinear()
-      .domain([0, 200000])
-      .range([this.height, 0]);
+      .domain([0, Math.max.apply(Math, data.map(e => e.value))])
+      .range([this.cfg.height, 0]);
 
     // Draw the Y-axis on the DOM
     this.svg.append("g")
@@ -54,19 +46,19 @@ export class D3BarComponent implements OnInit {
 
     // Create and fill the bars
     this.svg.selectAll("bars")
-      .data(data)
+      .data(this.cfg.data)
       .enter()
       .append("rect")
-      .attr("x", d => x(d.Framework))
-      .attr("y", d => y(d.Stars))
+      .attr("x", d => x(d.name))
+      .attr("y", d => y(d.value))
       .attr("width", x.bandwidth())
-      .attr("height", (d) => this.height - y(d.Stars))
+      .attr("height", (d) => this.cfg.height - y(d.value))
       .attr("fill", "#d04a35");
   }
 
   ngOnInit()
   {
     this.createSvg();
-    this.drawBars(this.data);
+    this.drawBars(this.cfg.data);
   }
 }
