@@ -5,14 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { D3BarComponent, D3PieComponent, D3ScatterComponent } from './D3';
+import { D3BarComponent, D3PieComponent } from './D3';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     D3BarComponent,
     D3PieComponent,
-    D3ScatterComponent
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

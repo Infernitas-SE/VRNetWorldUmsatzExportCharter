@@ -13,7 +13,7 @@ export class AppComponent {
   {
     this.titleSvc.setTitle('VR-NetWorld Charter')
   }
-
+  /*
   public barConfig: d3f.D3Config = {
     margin: 50,
     width: 650,
@@ -39,5 +39,9 @@ export class AppComponent {
     ],
     htmlSelector: 'first',
     radius: Math.min(650, 300) / 2 - 50
+  }*/
+
+  public handleFile(event) {
+    var file = event.target.files.item(0);
   }
 }
