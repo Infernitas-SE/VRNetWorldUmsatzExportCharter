@@ -9,7 +9,14 @@
     </div>
     <div class="w-full grid grid-rows-2" *ngIf="this.auswertungAktiv">
         <div class="grid grid-cols-2">
-            <span>Bitte anzahl der Datensätz auswählen: </span>
+            <div>
+                <span>Bitte Datenpaket (Größe: {{this.GetPaketSize()}}) auswählen: </span>
+            </div>
+            <div>
+                <select (change)="this.HandleSelectPaket($event)">
+                    <option *ngFor="let paket of this.GetPaketRangeList()">{{paket}}</option>
+                </select>
+            </div>
         </div>
         <div class="grid grid-cols-2">
             <div>
@@ -23,16 +30,16 @@
     </div>
     <div class="w-full grid grid-cols-2 h-10">
         <div>
-            <form [formGroup]="this.uploadForm" (ngSubmit)="this.uploadFile()">
+            <form [formGroup]="this.uploadForm" (ngSubmit)="this.HandleFileSubmit()">
                 <div class="grid grid-rows-3 grid-cols-1 gap-1">
                     <div>
                         <span class="text-2xl underline">Export hochladen</span><br>
                     </div>
                     <div>
-                        <input type="file" id="file" (change)="this.handleFile($event)">
+                        <input type="file" id="file" (change)="this.HandleFileInputUpdate($event)">
                     </div>
                     <div>
-                        <input class="bg-white-500 hover:bg-white-700 text-black font-bold mr-2 py-2 px-4 rounded" (change)="this.handleInput($event)" id="paketGroeße" type="text" placeholder="Paketgröße">
+                        <input class="bg-white-500 hover:bg-white-700 text-black font-bold mr-2 py-2 px-4 rounded" (change)="this.SetPaketSize($event)" id="paketGroeße" type="text" placeholder="Paketgröße">
                         <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Einlesen">
                     </div>
                 </div>

@@ -26,20 +26,22 @@ export type SortByOptions =
 export type ArrayRange = `${number}-${number}`
 
 export class SplittedCSVIndexedArray {
-  public range?: ArrayRange
-  public data?: CSVIndexedRow[]
+  public range: ArrayRange
+  public data: CSVIndexedRow[]
+  public index: number
 
-  public constructor(range?: ArrayRange, data?: CSVIndexedRow[]) {
+  public constructor(range: ArrayRange, data: CSVIndexedRow[], index: number) {
     this.range = range
     this.data = data
+    this.index = index
   }
 }
 
 export class CSVIndexedRow {
-  public index?: number
-  public data?: CSVRow
+  public index: number
+  public data: CSVRow
 
-  public constructor(index?: number, data?: CSVRow) {
+  public constructor(index: number, data: CSVRow) {
     this.index = index
     this.data = data
   }

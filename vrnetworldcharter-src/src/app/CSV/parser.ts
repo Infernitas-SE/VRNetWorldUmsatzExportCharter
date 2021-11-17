@@ -4,7 +4,7 @@ export class CSVParser {
   private rows: string[] = []
   private data: CSVIndexedRow[] = []
 
-  private SplitOnLineBreaks(content: string) {
+  public SplitOnLineBreaks(content: string) {
     this.rows = content.split(/\r\n/g)
   }
 

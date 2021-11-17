@@ -9,6 +9,7 @@ import { environment } from '../environments/environment'
 import { D3BarComponent, D3PieComponent } from './D3'
 import { UebersichtComponent } from './components/uebersicht/uebersicht.component'
 import { AgGridModule } from 'ag-grid-angular'
+import { CSVDataService } from './services/csv-data/csv-data.service'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AgGridModule } from 'ag-grid-angular'
     ReactiveFormsModule,
     AgGridModule,
   ],
-  providers: [],
+  providers: [CSVDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

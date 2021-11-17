@@ -26,7 +26,9 @@ export function SplitArray(
     for (let itr = indexStart; itr <= indexEnd; itr++) {
       buffer.push(base[itr])
     }
-    out.push(new SplittedCSVIndexedArray(`${indexStart}-${indexEnd}`, buffer))
+    out.push(
+      new SplittedCSVIndexedArray(`${indexStart}-${indexEnd}`, buffer, count)
+    )
     buffer = []
   }
 
@@ -35,7 +37,9 @@ export function SplitArray(
   for (let itr = hLength + 1; itr <= base.length; itr++) {
     buffer.push(base[itr])
   }
-  out.push(new SplittedCSVIndexedArray(`${hLength + 1}-${base.length}`, buffer))
+  out.push(
+    new SplittedCSVIndexedArray(`${hLength + 1}-${base.length}`, buffer, count)
+  )
   buffer = []
 
   return out

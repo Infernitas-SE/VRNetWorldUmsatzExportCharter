@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnChanges } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Title } from '@angular/platform-browser'
-import { CSVParser, SplitArray } from './CSV'
+import { SplittedCSVIndexedArray, ArrayRange } from './CSV'
+import { CSVDataService } from './services/csv-data/csv-data.service'
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,9 @@ import { CSVParser, SplitArray } from './CSV'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public titleSvc: Title) {
+  constructor(public titleSvc: Title, public csvDataSvc: CSVDataService) {
     this.titleSvc.setTitle('VR-NetWorld Charter')
-    this.csvHandler = new CSVParser()
+    this.csvDataSvc.GetAuswertungModus().subscribe(s => this.auswertungAktiv = s)
   }
   /*
   public barConfig: d3f.D3Config = {
@@ -41,36 +42,41 @@ export class AppComponent {
     radius: Math.min(650, 300) / 2 - 50
   }*/
 
-  csvFile: any
-  csvPaketGroeße: number = 0
-  csvHandler: CSVParser
-  public auswertungAktiv: boolean = false
-
   public uploadForm = new FormGroup({
     file: new FormControl(),
-    paketGroeße: new FormControl()
+    paketGroeße: new FormControl(),
   })
 
-  public handleFile(event) {
-    this.csvFile = event.target.files.item(0)
-  }
+  /* 
+   * Variablen
+   */
+  auswertungAktiv: boolean = false
+  paketSizes: ArrayRange[] = []
 
-  public handleInput(event) {
-    this.csvPaketGroeße = parseInt(event.target.value)
+  /*
+   * Input Handler
+   */
+  public HandleFileSubmit = () => { 
+    this.csvDataSvc.UploadCSVDatei() 
+    this.csvDataSvc.ParseCSVDatei()
   }
+  public HandleSelectPaket = (event) =>
+    this.csvDataSvc.SelectCSVPaket(event.target.value)
+  public HandleFileInputUpdate = (event) =>
+    this.csvDataSvc.SetCSVDatei(event.target.files.item(0))
 
-  public uploadFile() {
-    let fileReader = new FileReader()
-    const _ = this
-    fileReader.onload = function (e) {
-      _.csvHandler.Load(fileReader.result)
-      _.csvHandler.Parse()
-      _.csvHandler.CutHeader()
-      _.csvHandler.Dump()
-      var result = SplitArray(_.csvHandler.GetData(), _.csvPaketGroeße)
-      _.auswertungAktiv = true
-      console.log(result)
-    }
-    fileReader.readAsText(this.csvFile)
+  /*
+   * GET/SET Methoden in verbindung mit CSVDataService
+   */
+  public SetPaketSize = (event) =>
+    this.csvDataSvc.SetPaketSize(event.target.value)
+  public GetPaketSize = () =>
+    this.csvDataSvc.GetPaketSize().subscribe((s) => s).unsubscribe()
+  public GetPaketRangeList = (): ArrayRange[] => {
+    var ranges: ArrayRange[] = []
+    this.csvDataSvc.GetCSVPakete().subscribe((s) => {
+      ranges = s.map((s) => s.range)
+    }).unsubscribe()
+    return ranges
   }
 }
