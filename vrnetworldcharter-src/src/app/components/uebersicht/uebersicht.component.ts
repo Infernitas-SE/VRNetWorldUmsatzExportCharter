@@ -13,7 +13,7 @@ export class UebersichtComponent implements OnChanges {
   public rows: any
 
   ngOnChanges() {
-    this.csvDataSvc.GetCSVPaket().subscribe(s => {
+    this.csvDataSvc.GetCSVPaket().subscribe((s) => {
       this.rows = s.data
     })
   }

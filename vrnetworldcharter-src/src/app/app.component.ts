@@ -12,7 +12,9 @@ import { CSVDataService } from './services/csv-data/csv-data.service'
 export class AppComponent {
   constructor(public titleSvc: Title, public csvDataSvc: CSVDataService) {
     this.titleSvc.setTitle('VR-NetWorld Charter')
-    this.csvDataSvc.GetAuswertungModus().subscribe(s => this.auswertungAktiv = s)
+    this.csvDataSvc
+      .GetAuswertungModus()
+      .subscribe((s) => (this.auswertungAktiv = s))
   }
   /*
   public barConfig: d3f.D3Config = {
@@ -47,7 +49,7 @@ export class AppComponent {
     paketGroeße: new FormControl(),
   })
 
-  /* 
+  /*
    * Variablen
    */
   auswertungAktiv: boolean = false
@@ -56,8 +58,8 @@ export class AppComponent {
   /*
    * Input Handler
    */
-  public HandleFileSubmit = () => { 
-    this.csvDataSvc.UploadCSVDatei() 
+  public HandleFileSubmit = () => {
+    this.csvDataSvc.UploadCSVDatei()
     this.csvDataSvc.ParseCSVDatei()
   }
   public HandleSelectPaket = (event) =>
@@ -71,12 +73,18 @@ export class AppComponent {
   public SetPaketSize = (event) =>
     this.csvDataSvc.SetPaketSize(event.target.value)
   public GetPaketSize = () =>
-    this.csvDataSvc.GetPaketSize().subscribe((s) => s).unsubscribe()
+    this.csvDataSvc
+      .GetPaketSize()
+      .subscribe((s) => s)
+      .unsubscribe()
   public GetPaketRangeList = (): ArrayRange[] => {
     var ranges: ArrayRange[] = []
-    this.csvDataSvc.GetCSVPakete().subscribe((s) => {
-      ranges = s.map((s) => s.range)
-    }).unsubscribe()
+    this.csvDataSvc
+      .GetCSVPakete()
+      .subscribe((s) => {
+        ranges = s.map((s) => s.range)
+      })
+      .unsubscribe()
     return ranges
   }
 }
